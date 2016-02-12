@@ -3,43 +3,34 @@ package com.globant.earthmonitor.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.cocoahero.android.geojson.GeoJSON;
 import com.globant.earthmonitor.R;
-import com.globant.earthmonitor.model.GeoJson;
-import com.globant.earthmonitor.network.EarthquakeApi;
-import com.squareup.okhttp.ResponseBody;
-
-import org.json.JSONException;
-
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.globant.earthmonitor.fragment.FragmentSummary;
+import com.globant.earthmonitor.utils.Constants;
+import com.globant.earthmonitor.utils.ScreenManager;
 
 public class FirstActivity extends AppCompatActivity {
+    private static final String TAG = FirstActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        TextView mText = (TextView) findViewById(R.id.theLabel);
+        if(findViewById(R.id.viewWrapper) != null){
+            if(savedInstanceState == null){
+                try {
+                    ScreenManager.screenChange(FirstActivity.this,R.id.viewWrapper,
+                            FragmentSummary.class,null,Constants.VIEW_LIST, Constants.BIN_TRUE);
+                } catch (IllegalAccessException e) {
+                    Log.e(TAG,"ERROR "+e.getMessage());
+                } catch (InstantiationException e) {
+                    Log.e(TAG, "ERROR " + e.getMessage());
+                }
+            }
 
-        EarthquakeApi api = new EarthquakeApi();
-       api.getService().getAllHourSummary().enqueue(new Callback<GeoJson>() {
-           @Override
-           public void onResponse(Call<GeoJson> call, Response<GeoJson> response) {
-               GeoJson theStuff = response.body();
-               Log.d("XXX",theStuff.getType());
-           }
+        }
 
-           @Override
-           public void onFailure(Call<GeoJson> call, Throwable t) {
-                Log.e("XXX","ERRNO "+t.getMessage());
-           }
-       });
+
     }
 }

@@ -28,7 +28,7 @@ public class Properties {
     private Integer nst;
     private Double dmin;
     private Double rms;
-    private Integer gap;
+    private double gap;
     private String magType;
     private String type;
     private String title;
@@ -435,7 +435,7 @@ public class Properties {
      * @return
      *     The gap
      */
-    public Integer getGap() {
+    public double getGap() {
         return gap;
     }
 
@@ -444,7 +444,7 @@ public class Properties {
      * @param gap
      *     The gap
      */
-    public void setGap(Integer gap) {
+    public void setGap(double gap) {
         this.gap = gap;
     }
 
