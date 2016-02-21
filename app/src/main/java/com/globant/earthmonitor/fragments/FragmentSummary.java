@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.globant.earthmonitor.R;
 import com.globant.earthmonitor.adapter.RecyclerSummaryAdapter;
-import com.globant.earthmonitor.interaces.Callback;
+import com.globant.earthmonitor.interfaces.Callback;
 import com.globant.earthmonitor.interactor.Interactor;
 import com.globant.earthmonitor.model.GeoJson;
 
@@ -47,6 +47,6 @@ public class FragmentSummary  extends BaseFragment implements Callback{
     @Override
     public void onSuccess(Object param) {
         GeoJson stuff = (GeoJson)param;
-        mRecycler.setAdapter(new RecyclerSummaryAdapter(stuff.getFeatures()));
+        mRecycler.setAdapter(new RecyclerSummaryAdapter(stuff.getFeatures(),getActivity()));
     }
 }

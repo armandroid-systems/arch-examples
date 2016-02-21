@@ -2,7 +2,6 @@ package com.globant.earthmonitor.utils;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 /**
  * Created by zadtankus on 16/02/16.

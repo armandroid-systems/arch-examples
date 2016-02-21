@@ -1,7 +1,7 @@
 package com.globant.earthmonitor.interactor;
 
-import com.globant.earthmonitor.interaces.Callback;
-import com.globant.earthmonitor.interaces.IInteractor;
+import com.globant.earthmonitor.interfaces.Callback;
+import com.globant.earthmonitor.interfaces.IInteractor;
 import com.globant.earthmonitor.model.GeoJson;
 import com.globant.earthmonitor.network.EarthquakeApi;
 
