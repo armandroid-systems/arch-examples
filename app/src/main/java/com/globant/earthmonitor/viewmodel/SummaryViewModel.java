@@ -2,6 +2,7 @@ package com.globant.earthmonitor.viewmodel;
 
 import android.app.Activity;
 import android.databinding.BaseObservable;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -42,7 +43,7 @@ public class SummaryViewModel extends BaseObservable{
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.textViewMore:
-                        //goToDetailScreen();
+                        goToDetailScreen();
                         Log.d(TAG,"CLICK :O ");
                         break;
                     default:
@@ -54,8 +55,13 @@ public class SummaryViewModel extends BaseObservable{
 
     public void goToDetailScreen(){
         try {
+            Bundle mBundle = new Bundle();
+            mBundle.putParcelable(Constants.KEY_PARAM,mFeature);
+
             ScreenManager.screenChange((FragmentActivity)mActivity,R.id.fragmentWrapper,
-                    FragmentItemDetail.class,null, Constants.VIEW_DETAIL,Constants.BIN_FALSE);
+                    FragmentItemDetail.class,
+                    mBundle,
+                    Constants.VIEW_DETAIL,Constants.BIN_FALSE);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

@@ -4,10 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.globant.earthmonitor.R;
 import com.globant.earthmonitor.fragments.FragmentSummary;
 import com.globant.earthmonitor.utils.Constants;
 import com.globant.earthmonitor.utils.ScreenManager;
+import io.fabric.sdk.android.Fabric;
 
 public class FirstActivity extends AppCompatActivity {
     private static final String TAG = FirstActivity.class.getSimpleName();
@@ -15,6 +17,7 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_first);
 
         if(findViewById(R.id.fragmentWrapper) != null){

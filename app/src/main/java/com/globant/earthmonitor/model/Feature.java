@@ -1,10 +1,13 @@
 
 package com.globant.earthmonitor.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Feature {
+public class Feature implements Parcelable {
 
     private String type;
     private Properties properties;
@@ -92,4 +95,36 @@ public class Feature {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.type);
+        dest.writeParcelable(this.properties, flags);
+        dest.writeParcelable(this.geometry, flags);
+        dest.writeString(this.id);
+    }
+
+    public Feature() {
+    }
+
+    protected Feature(Parcel in) {
+        this.type = in.readString();
+        this.properties = in.readParcelable(Properties.class.getClassLoader());
+        this.geometry = in.readParcelable(Geometry.class.getClassLoader());
+        this.id = in.readString();
+    }
+
+    public static final Parcelable.Creator<Feature> CREATOR = new Parcelable.Creator<Feature>() {
+        public Feature createFromParcel(Parcel source) {
+            return new Feature(source);
+        }
+
+        public Feature[] newArray(int size) {
+            return new Feature[size];
+        }
+    };
 }

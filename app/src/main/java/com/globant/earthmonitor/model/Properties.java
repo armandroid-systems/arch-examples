@@ -1,10 +1,13 @@
 
 package com.globant.earthmonitor.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Properties {
+public class Properties implements Parcelable {
 
     private Double mag;
     private String place;
@@ -510,4 +513,80 @@ public class Properties {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.mag);
+        dest.writeString(this.place);
+        dest.writeLong(this.time);
+        dest.writeLong(this.updated);
+        dest.writeValue(this.tz);
+        dest.writeString(this.url);
+        dest.writeString(this.detail);
+        dest.writeValue(this.felt);
+        dest.writeValue(this.cdi);
+        dest.writeValue(this.mmi);
+        dest.writeValue(this.alert);
+        dest.writeString(this.status);
+        dest.writeValue(this.tsunami);
+        dest.writeValue(this.sig);
+        dest.writeString(this.net);
+        dest.writeString(this.code);
+        dest.writeString(this.ids);
+        dest.writeString(this.sources);
+        dest.writeString(this.types);
+        dest.writeValue(this.nst);
+        dest.writeValue(this.dmin);
+        dest.writeValue(this.rms);
+        dest.writeDouble(this.gap);
+        dest.writeString(this.magType);
+        dest.writeString(this.type);
+        dest.writeString(this.title);
+    }
+
+    public Properties() {
+    }
+
+    protected Properties(Parcel in) {
+        this.mag = (Double) in.readValue(Double.class.getClassLoader());
+        this.place = in.readString();
+        this.time = in.readLong();
+        this.updated = in.readLong();
+        this.tz = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.url = in.readString();
+        this.detail = in.readString();
+        this.felt = in.readParcelable(Object.class.getClassLoader());
+        this.cdi = in.readParcelable(Object.class.getClassLoader());
+        this.mmi = in.readParcelable(Object.class.getClassLoader());
+        this.alert = in.readParcelable(Object.class.getClassLoader());
+        this.status = in.readString();
+        this.tsunami = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.sig = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.net = in.readString();
+        this.code = in.readString();
+        this.ids = in.readString();
+        this.sources = in.readString();
+        this.types = in.readString();
+        this.nst = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.dmin = (Double) in.readValue(Double.class.getClassLoader());
+        this.rms = (Double) in.readValue(Double.class.getClassLoader());
+        this.gap = in.readDouble();
+        this.magType = in.readString();
+        this.type = in.readString();
+        this.title = in.readString();
+    }
+
+    public static final Parcelable.Creator<Properties> CREATOR = new Parcelable.Creator<Properties>() {
+        public Properties createFromParcel(Parcel source) {
+            return new Properties(source);
+        }
+
+        public Properties[] newArray(int size) {
+            return new Properties[size];
+        }
+    };
 }

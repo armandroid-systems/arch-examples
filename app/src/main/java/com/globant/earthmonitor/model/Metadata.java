@@ -1,10 +1,13 @@
 
 package com.globant.earthmonitor.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Metadata {
+public class Metadata implements Parcelable {
 
     private long generated;
     private String url;
@@ -130,4 +133,40 @@ public class Metadata {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.generated);
+        dest.writeString(this.url);
+        dest.writeString(this.title);
+        dest.writeValue(this.status);
+        dest.writeString(this.api);
+        dest.writeValue(this.count);
+    }
+
+    public Metadata() {
+    }
+
+    protected Metadata(Parcel in) {
+        this.generated = in.readLong();
+        this.url = in.readString();
+        this.title = in.readString();
+        this.status = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.api = in.readString();
+        this.count = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Metadata> CREATOR = new Parcelable.Creator<Metadata>() {
+        public Metadata createFromParcel(Parcel source) {
+            return new Metadata(source);
+        }
+
+        public Metadata[] newArray(int size) {
+            return new Metadata[size];
+        }
+    };
 }
